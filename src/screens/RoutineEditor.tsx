@@ -144,24 +144,28 @@ export function RoutineEditor({ id }: { id: string }) {
               onChange={(seconds) => update({ interval: { mode: 'fixed', seconds } })}
             />
           ) : (
-            <div className="row-2">
+            <>
               <NumberField
-                label="Min"
+                label="Shortest gap"
                 unit="s"
                 step={0.5}
                 min={0.5}
                 value={iv.min}
-                onChange={(min) => update({ interval: { ...iv, min } })}
+                // Keep the range valid: pushing min past max drags max along.
+                onChange={(min) => update({ interval: { ...iv, min, max: Math.max(min, iv.max) } })}
               />
               <NumberField
-                label="Max"
+                label="Longest gap"
                 unit="s"
                 step={0.5}
                 min={0.5}
                 value={iv.max}
-                onChange={(max) => update({ interval: { ...iv, max } })}
+                onChange={(max) => update({ interval: { ...iv, max, min: Math.min(max, iv.min) } })}
               />
-            </div>
+              <p className="range-summary">
+                A cue every <strong>{iv.min}s</strong> to <strong>{iv.max}s</strong>, at random
+              </p>
+            </>
           )}
         </section>
 
@@ -174,17 +178,15 @@ export function RoutineEditor({ id }: { id: string }) {
           />
           {routine.workSeconds !== null && (
             <>
-              <div className="row-2">
-                <NumberField label="Rounds" value={routine.rounds} min={1} max={99} onChange={(rounds) => update({ rounds })} />
-                <NumberField
-                  label="Round length"
-                  unit="s"
-                  step={5}
-                  min={5}
-                  value={routine.workSeconds}
-                  onChange={(workSeconds) => update({ workSeconds })}
-                />
-              </div>
+              <NumberField label="Rounds" value={routine.rounds} min={1} max={99} onChange={(rounds) => update({ rounds })} />
+              <NumberField
+                label="Round length"
+                unit="s"
+                step={5}
+                min={5}
+                value={routine.workSeconds}
+                onChange={(workSeconds) => update({ workSeconds })}
+              />
               <NumberField
                 label="Rest between rounds"
                 unit="s"

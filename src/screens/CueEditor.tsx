@@ -152,7 +152,7 @@ export function CueEditor({ id }: { id: string }) {
           )}
 
           {tab === 'beep' && cue.sound.type === 'beep' && (
-            <div className="row-2">
+            <>
               <NumberField
                 label="Pitch"
                 unit="Hz"
@@ -169,7 +169,7 @@ export function CueEditor({ id }: { id: string }) {
                 value={cue.sound.count}
                 onChange={(count) => cue.sound.type === 'beep' && update({ sound: { ...cue.sound, count } })}
               />
-            </div>
+            </>
           )}
 
           <button className="btn block" onClick={preview}>

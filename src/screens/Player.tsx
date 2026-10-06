@@ -47,7 +47,7 @@ export function Player({ id }: { id: string }) {
   const exit = () => {
     runner.current?.stop();
     runner.current = null;
-    navigate({ name: 'routine', id: routine.id }, true);
+    navigate({ name: 'home' }, true);
   };
 
   if (!snap) {

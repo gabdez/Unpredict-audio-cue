@@ -183,6 +183,8 @@ input[type='text'], input[type='number'], select {
 input[type='range'] { width: 100%; accent-color: var(--accent); }
 input[type='file'] { color: var(--muted); }
 .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.range-summary { margin: 0; color: var(--muted); text-align: center; }
+.range-summary strong { color: var(--text); }
 .total { margin: 0; font-weight: 700; text-align: right; }
 .actions { display: grid; gap: 10px; }
 
@@ -196,7 +198,15 @@ input[type='file'] { color: var(--muted); }
   background: var(--surface-2);
   font-size: 1.3rem;
 }
-.stepper input { text-align: center; min-width: 0; -moz-appearance: textfield; }
+.stepper input {
+  flex: 1;
+  min-width: 72px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  -moz-appearance: textfield;
+}
 .stepper input::-webkit-inner-spin-button, .stepper input::-webkit-outer-spin-button { -webkit-appearance: none; }
 .unit { color: var(--muted); margin-left: -2px; }
 
